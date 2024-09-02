@@ -8,5 +8,6 @@ namespace RestaurantProject.Models.DTOs
         public int NoOfSeats { get; set; }
         [Required]
         public bool Availability { get; set; }
+
     }
 }

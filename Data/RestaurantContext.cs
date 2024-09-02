@@ -12,6 +12,7 @@ namespace RestaurantProject.Data
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Dish> Dishes { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Customer>()

@@ -54,6 +54,7 @@ namespace RestaurantProject.Migrations
                     b.ToTable("Customers");
                 });
 
+
             modelBuilder.Entity("RestaurantProject.Models.Dish", b =>
                 {
                     b.Property<int>("DishId")
@@ -114,6 +115,7 @@ namespace RestaurantProject.Migrations
 
                     b.ToTable("Reservations");
                 });
+
 
             modelBuilder.Entity("RestaurantProject.Models.Table", b =>
                 {

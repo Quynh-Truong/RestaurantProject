@@ -13,5 +13,6 @@ namespace RestaurantProject.Models
         public bool Availability { get; set; }
 
         public virtual ICollection<Reservation> Reservations { get; set; }
+
     }
 }

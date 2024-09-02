@@ -13,5 +13,6 @@ namespace RestaurantProject.Services.IServices
         Task UpdateDishAsync(int dishId, DishDTO dish);
         Task DeleteDishAsync(int dishId);
         Task<Dish> FindDishByNameAsync(string name);
+
     }
 }

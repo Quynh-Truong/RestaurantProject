@@ -116,6 +116,7 @@ namespace RestaurantProject.Controllers
                 return StatusCode(500, "Error in handling request");
             }
 
+
         }
     }
 }

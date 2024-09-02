@@ -7,5 +7,6 @@ namespace RestaurantProject.Controllers
     [ApiController]
     public class ReservationsController : ControllerBase
     {
+
     }
 }

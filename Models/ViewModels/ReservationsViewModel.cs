@@ -10,5 +10,6 @@ namespace RestaurantProject.Models.ViewModels
         public int NoOfSeats { get; set; }
 
         public bool Availability { get; set; }
+
     }
 }

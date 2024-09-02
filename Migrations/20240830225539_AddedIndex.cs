@@ -8,6 +8,7 @@ namespace RestaurantProject.Migrations
     public partial class AddedIndex : Migration
     {
         /// <inheritdoc />
+        /// 
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateIndex(

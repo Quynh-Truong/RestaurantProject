@@ -22,5 +22,6 @@ namespace RestaurantProject.Models
         [MaxLength(4)]
         [MinLength(1)]
         public int NoOfPeople { get; set; }
+
     }
 }

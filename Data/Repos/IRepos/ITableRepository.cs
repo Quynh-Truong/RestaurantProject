@@ -12,5 +12,6 @@ namespace RestaurantProject.Data.Repos.IRepos
         Task DeleteTableAsync(Table table);
         //Task<Table> FindTableByTableNoAsync(int tableNo);
 
+
     }
 }

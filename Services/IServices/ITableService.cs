@@ -11,5 +11,6 @@ namespace RestaurantProject.Services.IServices
         Task UpdateTableAsync(int tableId, TableDTO tableDto);
         Task DeleteTableAsync(int tableId);
         //Task<Table> FindTableByTableNoAsync(int tableNo);
+
     }
 }

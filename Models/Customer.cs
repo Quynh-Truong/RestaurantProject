@@ -19,6 +19,7 @@ namespace RestaurantProject.Models
         [MinLength(7)]
         public string PhoneNo { get; set; }
 
+
         public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

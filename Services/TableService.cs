@@ -66,6 +66,7 @@ namespace RestaurantProject.Services
             return tables;
         }
 
+
         public async Task UpdateTableAsync(int tableId, TableDTO tableDto)
         {
             var chosenTable = await _tableRepository.FindTableByIdAsync(tableId);

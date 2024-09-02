@@ -40,6 +40,7 @@ namespace RestaurantProject.Data.Repos
             return await _context.Tables.ToListAsync();
         }
 
+
         public async Task UpdateTableAsync(Table table)
         {
             _context.Tables.Update(table);

@@ -15,5 +15,6 @@ namespace RestaurantProject.Models
         public double Price { get; set; }
         [Required]
         public bool Availability { get; set; }
+
     }
 }

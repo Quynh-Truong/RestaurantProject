@@ -11,5 +11,6 @@ namespace RestaurantProject.Services.IServices
         Task UpdateCustomerAsync(int customerId, CustomerDTO customer);
         Task<CustomerDTO> FindCustomerByIdAsync(int customerId);
         Task<Customer> FindCustomerByPhoneNoAsync(string phoneNo);
+
     }
 }

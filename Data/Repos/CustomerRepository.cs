@@ -30,6 +30,7 @@ namespace RestaurantProject.Data.Repos
             return await _context.Customers.ToListAsync();
         }
 
+
         public async Task<Customer> FindCustomerByIdAsync(int customerId)
         {
             return await _context.Customers.SingleOrDefaultAsync(c => c.CustomerId == customerId);

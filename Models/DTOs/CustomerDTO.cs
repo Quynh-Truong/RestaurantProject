@@ -13,5 +13,6 @@ namespace RestaurantProject.Models.DTOs
         [Required]
         [StringLength(15, ErrorMessage = "Phone number cannot be longer than 15 characters.")]
         public string PhoneNo { get; set; }
+
     }
 }

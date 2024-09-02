@@ -8,6 +8,7 @@ namespace RestaurantProject.Migrations
     public partial class RemovedTableNo : Migration
     {
         /// <inheritdoc />
+        /// 
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(

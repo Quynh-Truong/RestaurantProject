@@ -11,5 +11,6 @@ namespace RestaurantProject.Data.Repos.IRepos
         Task<Customer> FindCustomerByIdAsync(int customerId);
         Task<Customer> FindCustomerByPhoneNoAsync(string phoneNo);
 
+
     }
 }

@@ -12,6 +12,7 @@ namespace RestaurantProject.Data.Repos.IRepos
         Task DeleteDishAsync(Dish dish);
 
         Task<Dish> FindDishByNameAsync(string name);
+
     }
 }
 
