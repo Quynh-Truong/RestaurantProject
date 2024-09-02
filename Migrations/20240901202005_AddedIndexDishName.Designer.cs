@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantProject.Data;
 
@@ -11,9 +12,11 @@ using RestaurantProject.Data;
 namespace RestaurantProject.Migrations
 {
     [DbContext(typeof(RestaurantContext))]
-    partial class RestaurantContextModelSnapshot : ModelSnapshot
+    [Migration("20240901202005_AddedIndexDishName")]
+    partial class AddedIndexDishName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,7 +132,14 @@ namespace RestaurantProject.Migrations
                     b.Property<int>("NoOfSeats")
                         .HasColumnType("int");
 
+                    b.Property<int>("TableNo")
+                        .HasColumnType("int");
+
                     b.HasKey("TableId");
+
+                    b.HasIndex("TableNo")
+                        .IsUnique()
+                        .HasDatabaseName("Index_TableNo");
 
                     b.ToTable("Tables");
                 });

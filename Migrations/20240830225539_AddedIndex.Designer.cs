@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantProject.Data;
 
@@ -11,9 +12,11 @@ using RestaurantProject.Data;
 namespace RestaurantProject.Migrations
 {
     [DbContext(typeof(RestaurantContext))]
-    partial class RestaurantContextModelSnapshot : ModelSnapshot
+    [Migration("20240830225539_AddedIndex")]
+    partial class AddedIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,10 +78,6 @@ namespace RestaurantProject.Migrations
 
                     b.HasKey("DishId");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasDatabaseName("Index_Name");
-
                     b.ToTable("Dishes");
                 });
 
@@ -93,17 +92,14 @@ namespace RestaurantProject.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateAndTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("NoOfPeople")
                         .HasMaxLength(4)
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ReservationEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ReservationStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("TableId")
+                    b.Property<int>("TableId")
                         .HasColumnType("int");
 
                     b.HasKey("ReservationId");
@@ -123,13 +119,17 @@ namespace RestaurantProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TableId"));
 
-                    b.Property<bool>("Availability")
-                        .HasColumnType("bit");
-
                     b.Property<int>("NoOfSeats")
                         .HasColumnType("int");
 
+                    b.Property<int>("TableNo")
+                        .HasColumnType("int");
+
                     b.HasKey("TableId");
+
+                    b.HasIndex("TableNo")
+                        .IsUnique()
+                        .HasDatabaseName("Index_TableNo");
 
                     b.ToTable("Tables");
                 });
@@ -144,7 +144,9 @@ namespace RestaurantProject.Migrations
 
                     b.HasOne("RestaurantProject.Models.Table", "Table")
                         .WithMany("Reservations")
-                        .HasForeignKey("TableId");
+                        .HasForeignKey("TableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
 

@@ -1,17 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RestaurantProject.Models
+namespace RestaurantProject.Models.DTOs
 {
-    public class Table
+    public class TableDTO
     {
-        [Key]
-        public int TableId { get; set; }
-
         [Required]
         public int NoOfSeats { get; set; }
         [Required]
         public bool Availability { get; set; }
-
-        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

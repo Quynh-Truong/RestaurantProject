@@ -11,10 +11,13 @@ namespace RestaurantProject.Models
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         [ForeignKey("Table")]
-        public int TableId { get; set; }
+        public int? TableId { get; set; }
         public Table Table { get; set; }
         [Required]
-        public DateTime DateAndTime { get; set; }
+        public DateTime ReservationStart { get; set; }
+        [Required]
+        public DateTime ReservationEnd { get; set; }
+
         [Required]
         [MaxLength(4)]
         [MinLength(1)]
