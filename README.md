@@ -30,3 +30,6 @@
 * GET/api/Tables/getTable/{tableId}: Will fetch a certain table's info, when inputting table ID.
 * PUT/api/Tables/updateTable/{tableId}: Will update a table's info, when inputting table ID and filling in available fields.
 * DELETE/api/Tables/deleteTable/{tableId}: Will delete a certain table, when inputting its ID.
+
+  ## Initial version of ER-diagram:
+<img width="595" alt="InitialERdiagram" src="https://github.com/user-attachments/assets/4ef5127e-a8c4-46a0-8120-1b00002482ed">
