@@ -15,6 +15,8 @@ namespace RestaurantProject.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            //indexing, making PhoneNo and Name unique
             modelBuilder.Entity<Customer>()
                 .HasIndex(c => c.PhoneNo)
                 .IsUnique()

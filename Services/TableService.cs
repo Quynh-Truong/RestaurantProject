@@ -17,7 +17,7 @@ namespace RestaurantProject.Services
         {
             _tableRepository = tableRepository;
         }
-        public async Task AddTableAsync(TableDTO tableDto)
+        public async Task AddTableAsync(TableDTO2 tableDto)
         {
 
             var tableAdded = new Table
@@ -60,14 +60,21 @@ namespace RestaurantProject.Services
         //    return tableChosen;
         //}
 
-        public async Task<IEnumerable<Table>> GetAllTablesAsync()
+        public async Task<IEnumerable<TableDTO>> GetAllTablesAsync()
         {
             var tables = await _tableRepository.GetAllTablesAsync();
-            return tables;
+
+            var tableList = tables.Select(t => new TableDTO
+            {
+                TableId = t.TableId,
+                NoOfSeats = t.NoOfSeats
+            }).ToList();
+
+            return tableList;
         }
 
 
-        public async Task UpdateTableAsync(int tableId, TableDTO tableDto)
+        public async Task UpdateTableAsync(int tableId, TableDTO2 tableDto)
         {
             var chosenTable = await _tableRepository.FindTableByIdAsync(tableId);
 

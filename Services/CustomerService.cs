@@ -73,16 +73,16 @@ namespace RestaurantProject.Services
 
         public async Task<IEnumerable<CustomerDTO>> GetAllCustomersAsync()
         {
-            var dishes = await _customerRepository.GetAllCustomersAsync();
+            var customers = await _customerRepository.GetAllCustomersAsync();
 
-            var dishList = dishes.Select(d => new CustomerDTO
+            var customerList = customers.Select(c => new CustomerDTO
             {
-                FirstName = d.FirstName,
-                LastName = d.LastName,
-                PhoneNo = d.PhoneNo
+                FirstName = c.FirstName,
+                LastName = c.LastName,
+                PhoneNo = c.PhoneNo
             }).ToList();
 
-            return dishList;
+            return customerList;
         }
 
         public async Task UpdateCustomerAsync(int customerId, CustomerDTO customer)
