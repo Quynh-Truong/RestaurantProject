@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantProject.Exceptions;
+using RestaurantProject.Models;
 using RestaurantProject.Models.DTOs;
 using RestaurantProject.Services.IServices;
 using System.ComponentModel.DataAnnotations;
@@ -52,6 +53,11 @@ namespace RestaurantProject.Controllers
         [HttpGet("getCustomer/{customerId}")]
         public async Task<ActionResult> FindCustomerById(int customerId)
         {
+            if (customerId == null)
+            {
+                return BadRequest("Input customer ID, please.");
+            }
+
             var customer = await _customerService.FindCustomerByIdAsync(customerId);
 
             if (customer == null)
@@ -65,6 +71,11 @@ namespace RestaurantProject.Controllers
         [HttpGet("getCustomerByPhoneNo/{phoneNo}")]
         public async Task<ActionResult> FindCustomerByPhoneNo(string phoneNo)
         {
+            if (phoneNo == null)
+            {
+                return BadRequest("Input phone number, please.");
+            }
+
             var customer = await _customerService.FindCustomerByPhoneNoAsync(phoneNo);
 
             if (customer == null)
@@ -78,7 +89,12 @@ namespace RestaurantProject.Controllers
         [HttpPut("updateCustomer/{customerId}")]
         public async Task<ActionResult> UpdateCustomer(int customerId, CustomerDTO customerDTO)
         {
-            if(!ModelState.IsValid)
+            if (customerId == null)
+            {
+                return BadRequest("Input customer ID, please.");
+            }
+
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -100,8 +116,13 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpDelete("deleteCustomer/{customerId}")]
-        public async Task <ActionResult> DeleteCustomer(int customerId)
+        public async Task<ActionResult> DeleteCustomer(int customerId)
         {
+            if (customerId == null)
+            {
+                return BadRequest("Input customer ID, please.");
+            }
+
             try
             {
                 await _customerService.DeleteCustomerAsync(customerId);

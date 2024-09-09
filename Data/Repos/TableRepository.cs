@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantProject.Data.Repos.IRepos;
 using RestaurantProject.Models;
-using RestaurantProject.Models.ViewModels;
 
 namespace RestaurantProject.Data.Repos
 {

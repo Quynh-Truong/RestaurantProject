@@ -54,6 +54,11 @@ namespace RestaurantProject.Controllers
         [HttpGet("getDish/{dishId}")]
         public async Task<ActionResult<DishDTO>> FindDishById(int dishId)
         {
+            if (dishId == null)
+            {
+                return BadRequest("Input dish ID, please.");
+            }
+
             var dish = await _dishService.FindDishByIdAsync(dishId);
 
             if (dish == null)
@@ -67,6 +72,11 @@ namespace RestaurantProject.Controllers
         [HttpGet("getDishByName/{name}")]
         public async Task<ActionResult> FindDishByName(string name)
         {
+            if (name == null)
+            {
+                return BadRequest("Input dish name, please.");
+            }
+
             var dish = await _dishService.FindDishByNameAsync(name);
 
             if (dish == null)
@@ -80,6 +90,11 @@ namespace RestaurantProject.Controllers
         [HttpPut("updateDish/{dishId}")]
         public async Task<ActionResult> UpdateDish(int dishId, DishDTO dish)
         {
+            if (dishId == null)
+            {
+                return BadRequest("Input dish ID, please.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -104,6 +119,11 @@ namespace RestaurantProject.Controllers
         [HttpDelete("deleteDish/{dishId}")]
         public async Task<ActionResult> DeleteDish(int dishId)
         {
+            if (dishId == null)
+            {
+                return BadRequest("Input dish ID, please.");
+            }
+
             try
             {
                 await _dishService.DeleteDishAsync(dishId);

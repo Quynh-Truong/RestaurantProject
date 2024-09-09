@@ -29,7 +29,7 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpPost("addTable")]
-        public async Task<ActionResult> AddTable(TableDTO tableDTO)
+        public async Task<ActionResult> AddTable(TableDTO2 tableDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -54,6 +54,11 @@ namespace RestaurantProject.Controllers
         [HttpGet("getTable/{tableId}")]
         public async Task<ActionResult<Table>> FindTableById(int tableId)
         {
+            if (tableId == null)
+            {
+                return BadRequest("Input table ID, please.");
+            }
+
             var table = await _tableService.FindTableByIdAsync(tableId);
 
             if (table == null)
@@ -78,8 +83,13 @@ namespace RestaurantProject.Controllers
         //}
 
         [HttpPut("updateTable/{tableId}")]
-        public async Task<ActionResult<TableDTO>> UpdateTable(int tableId, TableDTO tableDTO)
+        public async Task<ActionResult<TableDTO>> UpdateTable(int tableId, TableDTO2 tableDTO)
         {
+            if (tableId == null)
+            {
+                return BadRequest("Input table ID, please.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -104,6 +114,11 @@ namespace RestaurantProject.Controllers
         [HttpDelete("deleteTable/{tableId}")]
         public async Task<ActionResult> DeleteDish(int tableId)
         {
+            if (tableId == null)
+            {
+                return BadRequest("Input table ID, please.");
+            }
+
             try
             {
                 await _tableService.DeleteTableAsync(tableId);
