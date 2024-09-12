@@ -27,7 +27,7 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpPost("addDish")]
-        public async Task<ActionResult> AddDish(DishDTO dish)
+        public async Task<ActionResult> AddDish([FromBody] DishDTO dish)
         {
             if (!ModelState.IsValid)//checks that all required fields are there/correct
                                     //- d annotations in DB help with this.. standard for API
@@ -88,7 +88,7 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpPut("updateDish/{dishId}")]
-        public async Task<ActionResult> UpdateDish(int dishId, DishDTO dish)
+        public async Task<ActionResult> UpdateDish(int dishId, [FromBody] DishDTO dish)
         {
             if (dishId == null)
             {
