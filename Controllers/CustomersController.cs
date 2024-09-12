@@ -28,7 +28,7 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpPost("addCustomer")]
-        public async Task<ActionResult> AddCustomer(CustomerDTO customerDTO)
+        public async Task<ActionResult> AddCustomer([FromBody] CustomerDTO customerDTO)
         {
             if (!ModelState.IsValid)//check that all required fields are there
             {
@@ -87,7 +87,7 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpPut("updateCustomer/{customerId}")]
-        public async Task<ActionResult> UpdateCustomer(int customerId, CustomerDTO customerDTO)
+        public async Task<ActionResult> UpdateCustomer(int customerId, [FromBody] CustomerDTO customerDTO)
         {
             if (customerId == null)
             {

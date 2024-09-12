@@ -47,7 +47,7 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpPut("updateReservation/{reservationId}")]
-        public async Task<ActionResult> UpdateReservation(int reservationId, ReservationDTO2 reservationDto)
+        public async Task<ActionResult> UpdateReservation(int reservationId, [FromBody] ReservationDTO2 reservationDto)
         {
             if (reservationId == null)
             {
@@ -64,7 +64,7 @@ namespace RestaurantProject.Controllers
                 await _reservationService.UpdateReservationAsync(reservationId, reservationDto);
                 return NoContent();
             }
-            catch (ValidationException ex)
+            catch (NotFoundException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -129,6 +129,10 @@ namespace RestaurantProject.Controllers
             {
                 await _reservationService.MakeReservationAsync(reservationDto);
                 return Ok();
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception)
             {

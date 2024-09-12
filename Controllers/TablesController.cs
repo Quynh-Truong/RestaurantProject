@@ -29,7 +29,7 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpPost("addTable")]
-        public async Task<ActionResult> AddTable(TableDTO2 tableDTO)
+        public async Task<ActionResult> AddTable([FromBody] TableDTO2 tableDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -69,21 +69,9 @@ namespace RestaurantProject.Controllers
             return table;
         }
 
-        //[HttpGet("getTableByTableNo/{tableNo}")]
-        //public async Task<ActionResult> FindTableByTableNo(int tableNo)
-        //{
-        //    var table = await _tableService.FindTableByTableNoAsync(tableNo);
-
-        //    if (table == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(table);
-        //}
 
         [HttpPut("updateTable/{tableId}")]
-        public async Task<ActionResult<TableDTO>> UpdateTable(int tableId, TableDTO2 tableDTO)
+        public async Task<ActionResult<TableDTO>> UpdateTable(int tableId, [FromBody] TableDTO2 tableDTO)
         {
             if (tableId == null)
             {

@@ -59,7 +59,8 @@ namespace RestaurantProject.Services
                 CustomerId = r.CustomerId,
                 TableId = r.ReservationId,
                 ReservationStart = r.ReservationStart,
-                ReservationEnd = r.ReservationEnd
+                ReservationEnd = r.ReservationEnd,
+                NoOfPeople = r.NoOfPeople
 
             }).ToList();
 
@@ -68,7 +69,7 @@ namespace RestaurantProject.Services
 
   
         //get by reservbyID shows right no of people, but not getallres
-        public async Task UpdateReservationAsync([FromBody] int reservationId, ReservationDTO2 reservationDto)
+        public async Task UpdateReservationAsync(int reservationId, ReservationDTO2 reservationDto)
         {
             var reservationToUpdate = await _reservationRepository.FindReservationByIdAsync(reservationId);
 
