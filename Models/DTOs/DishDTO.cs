@@ -7,10 +7,13 @@ namespace RestaurantProject.Models.DTOs
         [Required]
         [StringLength(250, ErrorMessage = "Name cannot be longer than 250 letters.")]
         public string Name { get; set; }
+        public string Description { get; set; }
         [Required]
         [Range(0.01, 2000.00, ErrorMessage = "Price must be between 0.01 and 2000.00.")]
         public double Price { get; set; }
         public bool Availability { get; set; }
+        public bool IsPopular { get; set; }
+        public string ImageUrl { get; set; }
 
     }
 }

@@ -12,9 +12,15 @@ namespace RestaurantProject.Models
         [MinLength(1)]
         public string Name { get; set; }
         [Required]
+        public string Description { get; set; }
+        [Required]
         public double Price { get; set; }
         [Required]
         public bool Availability { get; set; }
+        [Required]
+        public bool IsPopular { get; set; }
+        [Required]
+        public string ImageUrl { get; set; }
 
     }
 }

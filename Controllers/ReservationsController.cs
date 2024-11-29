@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantProject.Exceptions;
 using RestaurantProject.Models;
@@ -21,6 +22,7 @@ namespace RestaurantProject.Controllers
             _reservationService = reservationService;
         }
 
+       
         [HttpGet("getAllReservations")]
         public async Task<ActionResult<IEnumerable<Reservation>>> GetAllReservations()
         {
@@ -46,8 +48,9 @@ namespace RestaurantProject.Controllers
             return reservation;
         }
 
+       
         [HttpPut("updateReservation/{reservationId}")]
-        public async Task<ActionResult> UpdateReservation(int reservationId, [FromBody] ReservationDTO2 reservationDto)
+        public async Task<ActionResult> UpdateReservation(int reservationId, [FromBody] ReservationUpdateDTO reservationDto)
         {
             if (reservationId == null)
             {
@@ -74,6 +77,8 @@ namespace RestaurantProject.Controllers
             }
         }
 
+
+     
         [HttpDelete("deleteReservation/{reservationId}")]
         public async Task<ActionResult> DeleteReservation(int reservationId)
         {
@@ -97,12 +102,30 @@ namespace RestaurantProject.Controllers
             }
         }
 
-        [HttpGet("getAvailableTablesForReservation")]
-        public async Task<ActionResult> AvailableTablesForReservation(DateTime reservationTimeStart, int noOfPeople)
+        [HttpGet("getTakenTablesDuringChosenTime")]
+        public async Task<ActionResult> GetTakenTables(DateTime reservationStart)
         {
             try
             {
-                var availableTables = await _reservationService.AvailableTablesForReservationAsync(reservationTimeStart, noOfPeople);
+                var takenTables = await _reservationService.GetTakenTablesDuringChosenTimeAsync(reservationStart);
+                return Ok(takenTables);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Error in handling request");
+            }
+        }
+
+        [HttpGet("getAvailableTablesForReservation")]
+        public async Task<ActionResult> AvailableTablesForReservation(DateTime reservationStart, int noOfPeople)
+        {
+            try
+            {
+                var availableTables = await _reservationService.AvailableTablesForReservationAsync(reservationStart, noOfPeople);
                 return Ok(availableTables);
             }
             catch (Exception)
@@ -111,8 +134,8 @@ namespace RestaurantProject.Controllers
             }
         }
 
-        [HttpPost("makeReservation")]//works, but is slow? frombody
-        public async Task<ActionResult> MakeReservation([FromBody] ReservationDTO2 reservationDto)
+        [HttpPost("makeReservation")]
+        public async Task<ActionResult> MakeReservation([FromBody] ReservationMakeDTO reservationDto)
         {
             if (!ModelState.IsValid)
             {
@@ -122,7 +145,7 @@ namespace RestaurantProject.Controllers
             //check if there is a customerId used
             if (reservationDto.CustomerId == null)
             {
-                return BadRequest("Input customer ID, please.");
+                return BadRequest("No customer ID found");
             }
 
             try

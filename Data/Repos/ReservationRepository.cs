@@ -28,8 +28,8 @@ namespace RestaurantProject.Data.Repos
 
         public async Task<IEnumerable<Reservation>> GetAllReservationsAsync()
         {
-            return await _context.Reservations.ToListAsync();
-        }
+            return await _context.Reservations.Include(c => c.Customer)/*.Include(t => t.Table)*/.ToListAsync();
+        }//include other tables!!
 
 
         public async Task UpdateReservationAsync(Reservation reservation)
@@ -39,7 +39,7 @@ namespace RestaurantProject.Data.Repos
         }
 
 
-        public async Task<List<Table>> AvailableTablesForReservationAsync(DateTime reservationTimeStart, int noOfPeople)
+        public async Task<List<Table>> AvailableTablesForReservationAsync(DateTime reservationStart, int noOfPeople)
         {
             return await _context.Tables.ToListAsync();
         }
@@ -52,5 +52,9 @@ namespace RestaurantProject.Data.Repos
             await _context.SaveChangesAsync();
         }
 
+        public async Task<List<Reservation>> GetTakenTablesDuringChosenTimeAsync(DateTime reservationStart)
+        {
+            return await _context.Reservations.ToListAsync();
+        }
     }
 }
