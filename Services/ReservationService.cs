@@ -102,65 +102,16 @@ namespace RestaurantProject.Services
         {
             DateTime reservationTimeEnd = reservationStart.AddMinutes(120);
 
-            if (noOfPeople < 1)
-            {
-                throw new ValidationException("You have to be a company of at least one!");
-            }
-
-
-
-            var takenTables = await _reservationRepository.GetTakenTablesDuringChosenTimeAsync(reservationStart);
-
-
-            var tables = await _tableRepository.GetAllTablesAsync();
-
-
-
-            List<TableShowDTO> availableTables = new List<TableShowDTO>();
-
-            Console.WriteLine("Taken Tables:");
-            foreach (var taken in takenTables)
-            {
-                Console.WriteLine($"TableId: {taken.TableId}, NoOfPeople: {taken.NoOfPeople}");
-            }
-
-            //check if table has enough seats, add those that have enough seats(, else skip)
-            foreach (var table in tables)
-            {
-                if (table.NoOfSeats >= noOfPeople)
+            var availableTables = await _context.Tables
+                //check for tables that DON't have reservations that day and time
+                .Where(t => !t.Reservations.Any(r => r.ReservationStart < reservationTimeEnd && r.ReservationEnd > reservationStart))
+                .Where(t => t.NoOfSeats >= noOfPeople)
+                .Select(t => new TableShowDTO
                 {
-
-                    if (!takenTables.Any(t => t.TableId == table.TableId))
-                    {
-                        availableTables.Add(new TableShowDTO
-                        {
-                            TableId = table.TableId,
-                            NoOfSeats = table.NoOfSeats
-
-                        });
-                    }
-                    else
-                    {
-                        Console.WriteLine($"TableId: {table.TableId} is taken.");
-                    }
-                }
-
-                else
-                {
-                    Console.WriteLine($"TableId: {table.TableId} does not have enough seats.");
-                }
-  
-
-
-            }
-
-         
-
-            Console.WriteLine("Available Tables:");
-            foreach (var availableTable in availableTables)
-            {
-                Console.WriteLine($"TableId: {availableTable.TableId}, NoOfSeats: {availableTable.NoOfSeats}");
-            }
+                    TableId = t.TableId,
+                    NoOfSeats = t.NoOfSeats
+                })
+                .ToListAsync();
 
 
             return availableTables;
@@ -230,12 +181,13 @@ namespace RestaurantProject.Services
         //CHECK?
         public async Task<List<ReservationsShowDTO>> GetTakenTablesDuringChosenTimeAsync(DateTime reservationStart)
         {
+            DateTime reservationDate = reservationStart.Date;
             DateTime reservationTimeEnd = reservationStart.AddMinutes(120);
 
-            return await _context.Reservations
-                //existing res ends when new customer wants to eat/existing res starts before new customer's time ends
-                .Where(r => r.ReservationEnd > reservationStart && r.ReservationStart < reservationTimeEnd)
-                //.Where(r => r.ReservationStart <= reservationStart.AddMinutes(120) && r.ReservationEnd >= reservationStart)
+
+           return await _context.Reservations.
+                //we will check both date and time of taken tables
+                Where(r => r.ReservationStart.Date == reservationDate && r.ReservationEnd > reservationStart && r.ReservationStart < reservationTimeEnd)
                 .Select(r => new ReservationsShowDTO
                 {
                     ReservationId = r.ReservationId,
@@ -244,8 +196,7 @@ namespace RestaurantProject.Services
                     TableId = r.TableId,
                     ReservationStart = r.ReservationStart/*,*/
                     //ReservationEnd = r.ReservationEnd
-                })
-                .ToListAsync();
+                }).ToListAsync();
 
         }
     }
