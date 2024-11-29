@@ -29,7 +29,7 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpPost("addTable")]
-        public async Task<ActionResult> AddTable([FromBody] TableDTO2 tableDTO)
+        public async Task<ActionResult> AddTable([FromBody] TableCreateUpdateDTO tableDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace RestaurantProject.Controllers
 
 
         [HttpPut("updateTable/{tableId}")]
-        public async Task<ActionResult<TableDTO>> UpdateTable(int tableId, [FromBody] TableDTO2 tableDTO)
+        public async Task<ActionResult<TableShowDTO>> UpdateTable(int tableId, [FromBody] TableCreateUpdateDTO tableDTO)
         {
             if (tableId == null)
             {

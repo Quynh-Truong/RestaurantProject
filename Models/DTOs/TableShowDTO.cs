@@ -2,7 +2,7 @@
 
 namespace RestaurantProject.Models.DTOs
 {
-    public class TableDTO
+    public class TableShowDTO
     {
         public int TableId { get; set; }
         [Required]

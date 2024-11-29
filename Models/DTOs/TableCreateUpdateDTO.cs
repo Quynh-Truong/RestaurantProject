@@ -2,7 +2,7 @@
 
 namespace RestaurantProject.Models.DTOs
 {
-    public class TableDTO2
+    public class TableCreateUpdateDTO
     {
         [Required]
         public int NoOfSeats { get; set; }

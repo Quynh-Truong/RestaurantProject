@@ -9,9 +9,10 @@ namespace RestaurantProject.Models
         public int ReservationId { get; set; }
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
+
         public Customer Customer { get; set; }
         [ForeignKey("Table")]
-        public int? TableId { get; set; }//change?
+        public int TableId { get; set; }
         public Table Table { get; set; }
         [Required]
         public DateTime ReservationStart { get; set; }

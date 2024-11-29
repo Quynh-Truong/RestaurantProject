@@ -21,14 +21,14 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpGet("getAllCustomers")]
-        public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetAllCustomers()
+        public async Task<ActionResult<IEnumerable<CustomerCreateDTO>>> GetAllCustomers()
         {
             var customers = await _customerService.GetAllCustomersAsync();
             return Ok(customers);
         }
 
         [HttpPost("addCustomer")]
-        public async Task<ActionResult> AddCustomer([FromBody] CustomerDTO customerDTO)
+        public async Task<ActionResult> AddCustomer([FromBody] CustomerCreateDTO customerDTO)
         {
             if (!ModelState.IsValid)//check that all required fields are there
             {
@@ -87,7 +87,7 @@ namespace RestaurantProject.Controllers
         }
 
         [HttpPut("updateCustomer/{customerId}")]
-        public async Task<ActionResult> UpdateCustomer(int customerId, [FromBody] CustomerDTO customerDTO)
+        public async Task<ActionResult> UpdateCustomer(int customerId, [FromBody] CustomerCreateDTO customerDTO)
         {
             if (customerId == null)
             {

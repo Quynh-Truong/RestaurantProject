@@ -33,8 +33,12 @@ namespace RestaurantProject.Services
             var dishAdded = new Dish
             {
                 Name = dish.Name,
+                Description = dish.Description,
                 Price = dish.Price,
-                Availability = dish.Availability
+                Availability = dish.Availability,
+                IsPopular = dish.IsPopular,
+                ImageUrl = dish.ImageUrl
+
             };
 
             await _dishRepository.AddDishAsync(dishAdded);
@@ -102,8 +106,11 @@ namespace RestaurantProject.Services
 
             //re-writing the old values
             chosenDish.Name = dish.Name;
+            chosenDish.Description = dish.Description;
             chosenDish.Price = dish.Price;
             chosenDish.Availability = dish.Availability;
+            chosenDish.IsPopular = dish.IsPopular;
+            chosenDish.ImageUrl = dish.ImageUrl;
 
             await _dishRepository.UpdateDishAsync(chosenDish);
 

@@ -2,8 +2,10 @@
 
 namespace RestaurantProject.Models.DTOs
 {
-    public class CustomerDTO
+    public class CustomerShowDTO
     {
+        [Required]
+        public int CustomerId { get; set; }
         [Required]
         [StringLength(250, ErrorMessage = "First name cannot be longer than 250 characters.")]
         public string FirstName { get; set; }

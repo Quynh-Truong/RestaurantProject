@@ -17,7 +17,7 @@ namespace RestaurantProject.Services
         }
 
 
-        public async Task AddCustomerAsync(CustomerDTO customer)
+        public async Task AddCustomerAsync(CustomerCreateDTO customer)
         {
             var existingCustomer = await _customerRepository.FindCustomerByPhoneNoAsync(customer.PhoneNo);
 
@@ -48,13 +48,13 @@ namespace RestaurantProject.Services
             await _customerRepository.DeleteCustomerAsync(customer);
         }
 
-        public async Task<CustomerDTO> FindCustomerByIdAsync(int customerId)
+        public async Task<CustomerCreateDTO> FindCustomerByIdAsync(int customerId)
         {
             var customerChosen = await _customerRepository.FindCustomerByIdAsync(customerId);
 
             if (customerChosen != null)
             {
-                var customer = new CustomerDTO
+                var customer = new CustomerCreateDTO
                 {
                     FirstName = customerChosen.FirstName,
                     LastName = customerChosen.LastName,
@@ -71,12 +71,13 @@ namespace RestaurantProject.Services
             return existingCustomer;
         }
 
-        public async Task<IEnumerable<CustomerDTO>> GetAllCustomersAsync()
+        public async Task<IEnumerable<CustomerShowDTO>> GetAllCustomersAsync()
         {
             var customers = await _customerRepository.GetAllCustomersAsync();
 
-            var customerList = customers.Select(c => new CustomerDTO
+            var customerList = customers.Select(c => new CustomerShowDTO
             {
+                CustomerId = c.CustomerId,
                 FirstName = c.FirstName,
                 LastName = c.LastName,
                 PhoneNo = c.PhoneNo
@@ -85,7 +86,7 @@ namespace RestaurantProject.Services
             return customerList;
         }
 
-        public async Task UpdateCustomerAsync(int customerId, CustomerDTO customer)
+        public async Task UpdateCustomerAsync(int customerId, CustomerCreateDTO customer)
         {
             var chosenCustomer = await _customerRepository.FindCustomerByIdAsync(customerId);
             if (chosenCustomer == null)

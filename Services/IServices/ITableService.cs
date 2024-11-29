@@ -5,10 +5,10 @@ namespace RestaurantProject.Services.IServices
 {
     public interface ITableService
     {
-        Task<IEnumerable<TableDTO>> GetAllTablesAsync();
-        Task AddTableAsync(TableDTO2 tableDto);
+        Task<IEnumerable<TableShowDTO>> GetAllTablesAsync();
+        Task AddTableAsync(TableCreateUpdateDTO tableDto);
         Task<Table> FindTableByIdAsync(int tableId);
-        Task UpdateTableAsync(int tableId, TableDTO2 tableDto);
+        Task UpdateTableAsync(int tableId, TableCreateUpdateDTO tableDto);
         Task DeleteTableAsync(int tableId);
         //Task<Table> FindTableByTableNoAsync(int tableNo);
 
